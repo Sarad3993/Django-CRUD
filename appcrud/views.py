@@ -5,29 +5,30 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
+def index(request):
+    student = Students.objects.all()
+    context_var= {'student': student}
+    return render(request,'base.html',context_var)
 
-
-# **************************** CRUD **********************************
+# **************************** CRUD operations **********************************
 
 # CREATE functionality:
-@login_required
 def add_student(request):
     if request.method == 'POST':
-        forms = StudentsForm(request.POST)
-        if forms.is_valid():
-            forms.save()
-            messages.success(request,'Student has been registered successfully!')
-            return redirect('/student')
+        form = StudentsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/read_student')
         else:
             messages.warning(request,'Error during registration!')
             return redirect('/add_student')
 
-    context_var = {'forms':StudentsForm()}
+    context_var = {'form':StudentsForm()}
     return render(request,'add_student.html',context_var)
 
 
+
 # READ Functionality:
-@login_required
 def read_student(request):
     student = Students.objects.all()
     context_var = {'student':student}
@@ -38,18 +39,17 @@ def read_student(request):
 # UPDATE functionality:
 @login_required # this decorator forces user to be logged in to update
 def update_student(request,id):
-    student = Students.objects.get(id=id)
+    instance= Students.objects.get(id=id) # here we must set variable as instance only
     if request.method == 'POST':
-        forms = StudentsForm(request.POST)
-        if forms.is_valid():
-            forms.save()
-            messages.success(request, 'Updated Successfully!')
+        form= StudentsForm(request.POST,instance=instance)
+        if form.is_valid():
+            form.save()
             return redirect('/read_student')
         else:
             messages.warning(request, 'Error during Update!')
             return redirect('/update_student')
 
-    context_var = {'forms': StudentsForm()}
+    context_var = {'form':StudentsForm(instance=instance)}
     return render(request, 'update_student.html', context_var)
 
 
@@ -63,6 +63,8 @@ def delete_student(request,id):
         messages.success(request,'Deleted Successfully!')
         return redirect('/read_student')
 
+    context_var = {'student':student}
+    return render(request, 'delete_student.html',context_var)
 
 
 
