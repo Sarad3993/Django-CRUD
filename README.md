@@ -2,7 +2,9 @@
 
 ### *Simple crud app with create , read, update and delete functionality using django*
 
-## **Project Requirements:**
+#### See the live preview of this project hosted on pythonanywhere [here!](https://sarad3993.pythonanywhere.com "sarad3993.pythonanywhere.com")
+
+## **Project Requirements:** 
 
 #### Python must be installed on your system..
 #### Get it from here:&nbsp; **[Python](https://www.python.org/downloads/ "Python")**
