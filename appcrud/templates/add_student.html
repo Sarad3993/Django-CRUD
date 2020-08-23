@@ -4,15 +4,25 @@
 {% block content %}
 
 <div class="container">
-     <span style="font-size:40px; font-weight:medium; padding:10px;" > Add New Student </span>
+    <span style="font-size:40px; font-weight:medium; padding:10px;"> Add New Student </span>
     <br>
     <br>
-    <form method='POST'>
+    <form action="" method='POST' enctype="multipart/form-data">
         {% csrf_token %}
         <!-- must be used only when we use POST method-->
         {{form | bootstrap_horizontal:'col-sm-8'}}
-        &emsp;<button type="submit" class= "btn btn-outline-info">Submit</button>
+        &emsp;<button type="submit" class="btn btn-outline-info">Submit</button>
     </form>
-</div>
+    <br>
+    <!-- # for showing messages  -->
+    <div class="col-md-5">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
 
-{% endblock %}
+    {% endblock %}

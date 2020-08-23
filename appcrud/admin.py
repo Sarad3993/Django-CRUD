@@ -3,7 +3,7 @@ from appcrud.models import *
 
 
 class StudentsAdmin(admin.ModelAdmin):
-    list_display = ['first_name','last_name','email']
+    list_display = ['name','address','email','contact','image_tag']
 
 
 admin.site.register(Students,StudentsAdmin)

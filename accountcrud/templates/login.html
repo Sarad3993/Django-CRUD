@@ -1,10 +1,11 @@
 {% extends "base.html" %}
-{% load bootstrap %} <!-- to display bootstrap form -->
+{% load bootstrap %}
+<!-- to display bootstrap form -->
 
 {% block content %}
 
 <div class="container p-4 m-4">
-    <span style="font-size:40px; font-weight:medium; padding:10px;" > User Login </span>
+    <span style="font-size:40px; font-weight:medium; padding:10px;"> User Login </span>
     <br>
     <br>
     <form method="POST">
@@ -12,19 +13,18 @@
 
         {{form | bootstrap_horizontal:'col-sm-7'}}
 
-  <!-- # for showing messages  -->
-    <div class="col-md-5">
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-{{message.tags}}" role="alert">
-        {{ message }}
-    </div>
-    {% endfor %}
-    {% endif %}
-    </div>
+        <!-- # for showing messages  -->
+        <div class="col-md-5">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
         &emsp;<button type="submit" class="btn btn-outline-info">Submit</button>
     </form>
 </div>
-
 
 {% endblock %}

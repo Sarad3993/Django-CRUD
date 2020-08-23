@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    student = Students.objects.all()
+    student = Students.objects.all().count()
     context_var= {'student': student}
     return render(request,'base.html',context_var)
 
@@ -15,7 +15,7 @@ def index(request):
 # CREATE functionality:
 def add_student(request):
     if request.method == 'POST':
-        form = StudentsForm(request.POST)
+        form = StudentsForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/read_student')
@@ -23,7 +23,7 @@ def add_student(request):
             messages.warning(request,'Error during registration!')
             return redirect('/add_student')
 
-    context_var = {'form':StudentsForm()}
+    context_var = {'form':StudentsForm()} 
     return render(request,'add_student.html',context_var)
 
 
@@ -39,9 +39,9 @@ def read_student(request):
 # UPDATE functionality:
 @login_required # this decorator forces user to be logged in to update
 def update_student(request,id):
-    instance= Students.objects.get(id=id) # here we must set variable as instance only
+    student= Students.objects.get(id=id) # here we must set variable as instance only
     if request.method == 'POST':
-        form= StudentsForm(request.POST,instance=instance)
+        form= StudentsForm(request.POST,instance=student) 
         if form.is_valid():
             form.save()
             return redirect('/read_student')
@@ -49,7 +49,7 @@ def update_student(request,id):
             messages.warning(request, 'Error during Update!')
             return redirect('/update_student')
 
-    context_var = {'form':StudentsForm(instance=instance)}
+    context_var = {'form':StudentsForm(instance=student)} 
     return render(request, 'update_student.html', context_var)
 
 
@@ -57,9 +57,10 @@ def update_student(request,id):
 # DELETE functionality
 @login_required
 def delete_student(request,id):
+    # stu_id = int(stu_id)
     student = Students.objects.get(id=id)
     if request.method == 'POST':
-        student.delete()
+        student.delete() 
         messages.success(request,'Deleted Successfully!')
         return redirect('/read_student')
 

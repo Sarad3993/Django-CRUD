@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="container p-4 m-4">
-     <span style="font-size:40px; font-weight:medium; padding:10px;" > User Sign Up </span>
+    <span style="font-size:40px; font-weight:medium; padding:10px;"> User Sign Up </span>
     <br>
     <br>
     <form method="POST">
@@ -13,7 +13,7 @@
         {% csrf_token %}
 
         {{form | bootstrap_horizontal:'col-sm-7'}}
-       &emsp; <button type="submit" class= "btn btn-outline-info">Submit</button>
+        &emsp; <button type="submit" class="btn btn-outline-info">Submit</button>
     </form>
 </div>
 
